@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken');
 // Merchant signup
 const signup = async (req, res) => {
     try {
-        const { name, email, password, businessName } = req.body;
+        const { name, email, password, businessName, address } = req.body;
         const merchant = await MerchantModel.findOne({ email });
         if (merchant) {
             return res.status(409).json({ message: 'Merchant already exists, please login', success: false });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const merchantModel = new MerchantModel({ name, email, password: hashedPassword, businessName });
+        const merchantModel = new MerchantModel({ name, email, password: hashedPassword, businessName, address });
         await merchantModel.save();
 
         res.status(201).json({ message: "Merchant Signup Successful", success: true });
@@ -48,7 +48,8 @@ const login = async (req, res) => {
             success: true,
             jwtToken,
             email: merchant.email,
-            businessName: merchant.businessName
+            businessName: merchant.businessName,
+            address: merchant.address
         });
     } catch (err) {
         res.status(500).json({ message: 'Internal Server Error', success: false });

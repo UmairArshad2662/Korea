@@ -18,6 +18,10 @@ const MerchantSchema = new Schema({
     businessName: {
         type: String,
         required: true,
+    },
+    address: {
+        type: String,
+        required: true,
     }
 });
 

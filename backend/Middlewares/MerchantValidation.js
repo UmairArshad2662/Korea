@@ -6,6 +6,7 @@ const signupValidation = (req, res, next) => {
         email: Joi.string().email().required(),
         password: Joi.string().min(4).max(100).required(),
         businessName: Joi.string().min(3).max(100).required(),  // New field for merchants
+        address: Joi.string().min(3).max(100).required()
     });
 
     const { error } = schema.validate(req.body);
