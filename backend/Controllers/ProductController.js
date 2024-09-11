@@ -4,6 +4,9 @@ const MerchantModel = require("../Models/Merchant"); // Make sure to import User
 // Add a product
 const addProduct = async (req, res) => {
   try {
+    console.log("Request Body:", req.body);
+    console.log("User:", req.user);
+
     const {
       campaignName,
       isVisitOrShip,
@@ -27,7 +30,7 @@ const addProduct = async (req, res) => {
 
     const product = new ProductModel({
       userId: req.user._id,
-      email: user.email, // Add the user's email
+      email: user.email,
       campaignName,
       isVisitOrShip,
       location,
@@ -45,6 +48,7 @@ const addProduct = async (req, res) => {
     await product.save();
     res.status(201).json({ message: "Product added successfully", product });
   } catch (err) {
+    console.error("Error adding product:", err);
     res
       .status(500)
       .json({ message: "Error adding product", error: err.message });

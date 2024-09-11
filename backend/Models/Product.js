@@ -20,11 +20,7 @@ const ProductSchema = new Schema({
     enum: ["Visit", "Ship"],
     required: true
   },
-  channel: {
-    type: String,
-    enum: ["YouTube", "facebook","TikTok"],
-    required: true
-  },
+  
   location: {
     type: String,
     required: true
